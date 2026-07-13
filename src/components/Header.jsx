@@ -1,16 +1,18 @@
-import {Navbar , Container ,Nav} from "react-bootstrap";
+import {Navbar , Container ,Nav,Button} from "react-bootstrap";
 
 const Header=()=>{
 
     return (
-        <Navbar>
+        <Navbar bg="dark" variant="dark" text="White">
             <Container>
-                <Nav>
-                <Nav.Link>Home</Nav.Link>
-                 <Nav.Link>Store</Nav.Link>
-                  <Nav.Link>About</Nav.Link>
+                <Nav  className="mx-auto">
+                <Nav.Link className="text-white fw-bold">Home</Nav.Link>
+                 <Nav.Link className="text-white fw-bold">Store</Nav.Link>
+                  <Nav.Link className="text-white fw-bold">About</Nav.Link>
                 </Nav>
+                <Button variant="outline-info">Cart</Button>
             </Container>
+
             </Navbar>
 
 
