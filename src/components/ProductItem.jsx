@@ -2,7 +2,7 @@ import {Card,Button} from "react-bootstrap";
 const ProductItem=({product})=>{
 
     return (
-        <Card>
+        <Card py="10" px="10">
             <Card.Title>
              {product.title}
             </Card.Title>

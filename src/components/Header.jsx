@@ -1,7 +1,10 @@
 import {Navbar , Container ,Nav,Button} from "react-bootstrap";
+import {useState} from "react";
 
-const Header=()=>{
 
+const Header=({onOpenCart})=>{
+ 
+ 
     return (
         <Navbar bg="dark" variant="dark" text="White">
             <Container>
@@ -10,7 +13,7 @@ const Header=()=>{
                  <Nav.Link className="text-white fw-bold">Store</Nav.Link>
                   <Nav.Link className="text-white fw-bold">About</Nav.Link>
                 </Nav>
-                <Button variant="outline-info">Cart</Button>
+                <Button variant="outline-info" onClick={onOpenCart}>Cart</Button>
             </Container>
 
             </Navbar>

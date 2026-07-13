@@ -4,9 +4,9 @@ import ProductItem from "./ProductItem";
 const Products = ({ products }) => {
   return (
     <Container>
-      <Row>
+      <Row >
         {products.map((product) => (
-          <Col md={6}>
+          <Col md={6} className="my-3">
             <ProductItem product={product} />
           </Col>
         ))}

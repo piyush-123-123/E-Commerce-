@@ -1,0 +1,28 @@
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 100vh;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.cart-header {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.cart-header h2 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
