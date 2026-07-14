@@ -1,30 +1,17 @@
 import { Button, Row, Col } from "react-bootstrap";
 import "./Cart.css";
+import CartContext from "../Store/CartContext"
+import {useContext} from "react"
 
 const Cart = ({ onCloseCart }) => {
-  const cartElements = [
-    {
-      title: "Colors",
-      price: 100,
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-      quantity: 2,
-    },
-    {
-      title: "Black and white Colors",
-      price: 50,
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-      quantity: 3,
-    },
-    {
-      title: "Yellow and Black Colors",
-      price: 70,
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-      quantity: 1,
-    },
-  ];
+  const ctx=useContext(CartContext);
+  const cartElements = ctx.items;
+
+  const totalPrice = cartElements.reduce(
+  (acc, curr) => acc + curr.price * curr.quantity,
+  0
+);
+
 
   return (
     <div className="cart">
@@ -35,6 +22,7 @@ const Cart = ({ onCloseCart }) => {
           variant="outline-danger"
           className="close-btn"
           onClick={onCloseCart}
+          
         >
           X
         </Button>
@@ -79,7 +67,7 @@ const Cart = ({ onCloseCart }) => {
       ))}
 
       <div className="d-flex justify-content-end mt-4">
-        <h5>Total $220</h5>
+        <h5>Total ${totalPrice}</h5>
       </div>
 
       <div className="text-center mt-4">

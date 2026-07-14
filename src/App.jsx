@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Products from "./components/Products";
 import {useState} from "react";
 import Cart from "./components/Cart/Cart";
+import CartProvider from "./components/Store/CartProvider" 
 
 const App=()=>{
 
@@ -57,12 +58,12 @@ imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
 
 
   return (
-<>
+<CartProvider>
 <Header onOpenCart={openCartHandler} />
 <Hero />
 <Products products={productsArr}/>
 {showCart && <Cart onCloseCart={closeCartHandler} />}
-</>
+</CartProvider>
   )
 
 }

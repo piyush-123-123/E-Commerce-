@@ -1,6 +1,8 @@
 import {Card,Button} from "react-bootstrap";
+import CartContext from "../components/Store/CartContext"
+import {useContext} from "react";
 const ProductItem=({product})=>{
-
+const ctx=useContext(CartContext);
     return (
         <Card py="10" px="10">
             <Card.Title>
@@ -12,7 +14,7 @@ const ProductItem=({product})=>{
             />
             <Card.Body  className="d-flex justify-content-between align-items-center">
                 ${product.price}
-                <Button>Add to Cart</Button>
+                <Button onClick={ () => ctx.addItem(product) }>Add to Cart</Button>
                 </Card.Body>
                
                
