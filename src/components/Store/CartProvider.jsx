@@ -7,7 +7,6 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
    
-
   if (action.type === "ADD_ITEM") {
      const existingCartItem = state.items.find(
   (item) => item.title === action.payload.title
@@ -27,7 +26,16 @@ const updatedItem = {
   ...existingCartItem,
   quantity: existingCartItem.quantity + 1,
 };
-return updatedItem;
+const updatedItems = state.items.map((item) => {
+  if (item.title === action.payload.title) {
+    return updatedItem;
+  }
+
+  return item;
+}); 
+return {
+    items:updatedItems,
+}
 }
 
   return state;
@@ -49,7 +57,7 @@ const CartProvider = (props) => {
   const cartContext = {
     items: cartState.items,
     addItem: addItemHandler,
-    totalPrice:cartState.items.price
+  
   };
 
   return (
