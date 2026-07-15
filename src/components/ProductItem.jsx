@@ -4,17 +4,21 @@ import {useContext} from "react";
 const ProductItem=({product})=>{
 const ctx=useContext(CartContext);
     return (
-        <Card py="10" px="10">
-            <Card.Title>
+        <Card
+  className="border-0 shadow-none"
+  style={{ width: "15rem" }}
+>
+            <Card.Title className="d-flex justify-content-center">
              {product.title}
             </Card.Title>
             <Card.Img 
             src= {product.imageUrl} 
-            style={{ height: "250px", objectFit: "cover" }}
+            style={{ height: "220px", objectFit: "cover" }}
             />
-            <Card.Body  className="d-flex justify-content-between align-items-center">
-                ${product.price}
-                <Button onClick={ () => ctx.addItem(product) }>Add to Cart</Button>
+            <Card.Body  className="d-flex justify-content-between align-items-end">
+                <div className="d-flex fw-bold"> ${product.price}</div>
+               
+                <Button variant="light" onClick={ () => ctx.addItem(product)}>Add to Cart</Button>
                 </Card.Body>
                
                

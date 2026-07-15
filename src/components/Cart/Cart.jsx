@@ -1,76 +1,63 @@
-import { Button, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useContext } from "react";
+import CartContext from "../Store/CartContext";
+import CartItem from "./CartItem";
 import "./Cart.css";
-import CartContext from "../Store/CartContext"
-import {useContext} from "react"
+import {Row,Col} from "react-bootstrap"
 
 const Cart = ({ onCloseCart }) => {
-  const ctx=useContext(CartContext);
-  const cartElements = ctx.items;
+  const ctx = useContext(CartContext);
 
-  const totalPrice = cartElements.reduce(
-  (acc, curr) => acc + curr.price * curr.quantity,
-  0
-);
-
+  const totalPrice = ctx.items.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="cart">
-      <div className="cart-header">
-        <h2>CART</h2>
-
-        <Button
+     < div className="d-flex justify-content-end">
+    <Button
           variant="outline-danger"
-          className="close-btn"
           onClick={onCloseCart}
           
         >
           X
         </Button>
-      </div>
+</div>
+      
+        <div className="cartheader">
+       <h2>Cart</h2>
+        </div>
 
-      <Row className="fw-bold text-center border-bottom pb-2 mb-3">
-        <Col xs={6}>ITEM</Col>
-        <Col xs={3}>PRICE</Col>
-        <Col xs={3}>QUANTITY</Col>
-      </Row>
+     <Row className="fw-bold text-center pb-2">
+  <Col xs={6}>
+    <div className="heading-border">ITEM</div>
+  </Col>
 
-      {cartElements.map((item) => (
-        <Row
-          key={item.title}
-          className="align-items-center border-bottom py-3"
-        >
-          <Col xs={6} className="d-flex align-items-center">
-            <img
-              src={item.imageUrl}
-              alt={item.title}
-              width="60"
-              height="60"
-            />
+  <Col xs={2}>
+    <div className="heading-border">PRICE</div>
+  </Col>
 
-            <span className="ms-3">{item.title}</span>
-          </Col>
+  <Col xs={4}>
+    <div className="heading-border">QUANTITY</div>
+  </Col>
+</Row>
 
-          <Col xs={3}>${item.price}</Col>
+     <div className="cart-body">
+  {ctx.items.map((item) => (
+    <CartItem
+      key={item.title}
+      item={item}
+    />
+  ))}
+</div>
 
-          <Col xs={3}>
-            {item.quantity}
+      <div className="d-flex justify-content-end align-items-center my-2" >
+  <h4 className="me-3">Total</h4>
+  <h4>${totalPrice.toFixed(2)}</h4>
+</div>
 
-            <Button
-              variant="danger"
-              size="sm"
-              className="ms-2"
-            >
-              REMOVE
-            </Button>
-          </Col>
-        </Row>
-      ))}
-
-      <div className="d-flex justify-content-end mt-4">
-        <h5>Total ${totalPrice}</h5>
-      </div>
-
-      <div className="text-center mt-4">
+      <div className="d-flex justify-content-center mt-5" >
         <Button variant="info">
           PURCHASE
         </Button>

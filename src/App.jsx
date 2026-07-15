@@ -1,77 +1,45 @@
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Products from "./components/Products";
-import {useState} from "react";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Hero from "./components/Hero"
+import Navbar from "./components/Navbar";
 import Cart from "./components/Cart/Cart";
-import CartProvider from "./components/Store/CartProvider" 
-import Home from "./pages/Home";
-import Store from "./pages/Store";
-import About from "./pages/About";
+import CartProvider from "./components/Store/CartProvider";
+import Footer from "./components/Footer"
+import "./app.css";
 
-const App=()=>{
+const App = () => {
+  const [showCart, setShowCart] = useState(false);
 
-const [showCart,setShowCart]=useState(false);
- const openCartHandler=()=>{
+  const openCartHandler = () => {
     setShowCart(true);
- }
-  const closeCartHandler=()=>{
+  };
+
+  const closeCartHandler = () => {
     setShowCart(false);
- }
-
-  const productsArr = [
-{
-title: 'Colors',
-
-price: 100,
-
-imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-
-},
-
-{
-
-title: 'Black and white Colors',
-
-price: 50,
-
-imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-
-},
-
-{
-
-title: 'Yellow and Black Colors',
-
-price: 70,
-
-imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-
-},
-
-{
-
-title: 'Blue Color',
-
-price: 100,
-
-imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-}
-]
-
+  };
 
   return (
-<CartProvider>
-  <Header onOpenCart={openCartHandler} />
-  <Hero title="The Generics" />
-  {showCart && <Cart onCloseCart={closeCartHandler} />}
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/store" element={<Store products={productsArr} />} />
-    <Route path="/about" element={<About />} />
-  </Routes>
-</CartProvider>
-  )
 
-}
+    <CartProvider>
+
+
+     <div className="app">
+    <Navbar onOpenCart={openCartHandler} />
+
+      <Hero title="The Generics" />
+   
+    
+
+    {showCart && <Cart onCloseCart={closeCartHandler} />}
+
+    <main className="content">
+      <Outlet />
+    </main>
+
+    <Footer />
+  </div>
+    </CartProvider>
+  );
+};
+
 export default App;

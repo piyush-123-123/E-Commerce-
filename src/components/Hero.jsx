@@ -1,13 +1,37 @@
-import {Container} from "react-bootstrap";
-const Hero=()=>{
+import { Container, Button } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import "./Hero.css";
 
-    return (
-        <div className="bg-secondary text-white text-center py-5">
-            <Container>
-                <h1 className="fw-bold ">The Generics</h1>
-            </Container>
-            </div>
-    )
-    
-}
+const Hero = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  return (
+    <div className="bg-secondary text-white text-center py-5 ">
+<Container className="hero d-flex flex-column align-items-center">
+  <h1 className="display-1 fw-bold">The Generics</h1>
+
+  {isHome && (
+    <>
+      <Button
+        variant="outline-info"
+        className="text-white mt-3"
+      >
+        Get our Latest Album
+      </Button>
+
+      <Button
+        variant="outline-info"
+        className="rounded-circle mt-4"
+        style={{ width: "70px", height: "70px" }}
+      >
+        ▶
+      </Button>
+    </>
+  )}
+</Container>
+    </div>
+  );
+};
+
 export default Hero;

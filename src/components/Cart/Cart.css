@@ -1,28 +1,39 @@
 .cart {
   position: fixed;
-  top: 0;
+  top: 65px;
   right: 0;
-  width: 500px;
-  height: 100vh;
+
+  width: 20%;
+  min-width: 400px;
+  height: calc(100vh - 56px);
+
   background-color: white;
+
+  border-left: 1px solid #ddd;
+
   padding: 20px;
-  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+
   overflow-y: auto;
+
   z-index: 1000;
 }
-
-.cart-header {
-  position: relative;
-  margin-bottom: 30px;
+.cartheader{
+ display: flex;
+ justify-content: center;
+ margin-top: 15px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.purchase{
+  display: flex;
+  justify-content: center;
+}
+.heading-border{
+    display: inline-block;
+    border-bottom: 2px solid black;
+    padding-bottom: 6px;
 }
 
-.cart-header h2 {
-  text-align: center;
-  font-weight: bold;
-}
 
-.close-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+
+
+

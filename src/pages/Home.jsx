@@ -1,5 +1,8 @@
+import Tours from "../components/Tours";
 const Home = () => {
-  return <h1>Home Page</h1>;
+  return (
+<Tours />
+  )
 };
 
 export default Home;

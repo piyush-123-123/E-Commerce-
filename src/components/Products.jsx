@@ -6,7 +6,7 @@ const Products = ({ products }) => {
     <Container>
       <Row >
         {products.map((product) => (
-          <Col md={6} className="my-3">
+          <Col md={6} className="d-flex justify-content-center my-3 ml-4">
             <ProductItem product={product} />
           </Col>
         ))}
