@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import Hero from "./components/Hero"
+import { Switch, Route } from 'react-router-dom';
+import Contact from "./pages/Contact";
+
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./components/Store/CartProvider";
-import Footer from "./components/Footer"
-import "./app.css";
+import Footer from "./components/Footer";
+
+import Home from "./pages/Home";
+import Store from "./pages/Store";
+import About from "./pages/About";
+
+import "./App.css";
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
@@ -19,25 +26,34 @@ const App = () => {
   };
 
   return (
-
     <CartProvider>
+      <div className="app">
+        <Navbar onOpenCart={openCartHandler} />
 
+        {showCart && <Cart onCloseCart={closeCartHandler} />}
+       <Hero />
+       <main className="content">
+        <Switch>
+          <Route path="/" exact>
+              <Home />
+          </Route>
 
-     <div className="app">
-    <Navbar onOpenCart={openCartHandler} />
+          <Route path="/store">
+              <Store />
+          </Route>
 
-      <Hero title="The Generics" />
-   
-    
+          <Route path="/about">
+              <About />
+          </Route>
+          <Route path="/contact">
+              <Contact />
+          </Route>
 
-    {showCart && <Cart onCloseCart={closeCartHandler} />}
+        </Switch>
+        </main>
 
-    <main className="content">
-      <Outlet />
-    </main>
-
-    <Footer />
-  </div>
+        <Footer />
+      </div>
     </CartProvider>
   );
 };

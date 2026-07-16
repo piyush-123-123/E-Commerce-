@@ -1,5 +1,5 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
-
+import {Button } from "react-bootstrap";
+import "./Tours.css";
 const tours = [
   {
     date: "JUL 16",
@@ -35,30 +35,18 @@ const tours = [
 
 const Tours = () => {
   return (
-    <Container className="my-5">
-      <h2 className="text-center mb-5">TOURS</h2>
-
+    <div className="tour">
+      <h2 className="text-center fw-bold mb-5">TOURS</h2>
+   
       {tours.map((tour, index) => (
-        <Row
-          key={index}
-          className="align-items-center border-bottom py-3"
-        >
-          <Col md={2}>
-            <strong>{tour.date}</strong>
-          </Col>
-
-          <Col md={3}>{tour.city}</Col>
-
-          <Col md={5}>{tour.venue}</Col>
-
-          <Col md={2}>
-            <Button variant="info" className="text-white">
-              BUY TICKETS
-            </Button>
-          </Col>
-        </Row>
-      ))}
-    </Container>
+     <div key={index} className="tourList">
+    <span>{tour.date}</span>
+    <span>{tour.city}</span>
+    <span>{tour.venue}</span>
+    <Button variant="outline-info">Buy Tickets</Button>
+  </div>
+))}
+    </div>
   );
 };
 

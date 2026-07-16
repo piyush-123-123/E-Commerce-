@@ -5,10 +5,13 @@ import "./Hero.css";
 const Hero = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isContactUs=location.pathname==="/contact";
 
   return (
-    <div className="bg-secondary text-white text-center py-5 ">
-<Container className="hero d-flex flex-column align-items-center">
+    <>
+  {!isContactUs &&
+  <div className="bg-secondary text-white text-center py-5 ">
+   <Container className="hero d-flex flex-column align-items-center">
   <h1 className="display-1 fw-bold">The Generics</h1>
 
   {isHome && (
@@ -29,8 +32,11 @@ const Hero = () => {
       </Button>
     </>
   )}
+
 </Container>
     </div>
+}
+</>
   );
 };
 

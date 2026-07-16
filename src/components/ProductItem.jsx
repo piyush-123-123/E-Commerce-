@@ -8,7 +8,7 @@ const ctx=useContext(CartContext);
   className="border-0 shadow-none"
   style={{ width: "15rem" }}
 >
-            <Card.Title className="d-flex justify-content-center">
+            <Card.Title className="d-flex ">
              {product.title}
             </Card.Title>
             <Card.Img 
@@ -18,7 +18,7 @@ const ctx=useContext(CartContext);
             <Card.Body  className="d-flex justify-content-between align-items-end">
                 <div className="d-flex fw-bold"> ${product.price}</div>
                
-                <Button variant="light" onClick={ () => ctx.addItem(product)}>Add to Cart</Button>
+                <Button variant="outline-success" onClick={ () => ctx.addItem(product)}>Add to Cart</Button>
                 </Card.Body>
                
                
