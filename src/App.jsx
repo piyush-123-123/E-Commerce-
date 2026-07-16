@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Switch, Route } from 'react-router-dom';
 import Contact from "./pages/Contact";
-
+import ProductDetails from "./pages/ProductDetails"
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
-import CartProvider from "./components/Store/CartProvider";
+import CartProvider from "./components/store/CartProvider";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
@@ -47,6 +47,9 @@ const App = () => {
           </Route>
           <Route path="/contact">
               <Contact />
+          </Route>
+          <Route path="/product/:productId">
+         <ProductDetails />
           </Route>
 
         </Switch>

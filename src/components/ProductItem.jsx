@@ -1,6 +1,7 @@
 import {Card,Button} from "react-bootstrap";
-import CartContext from "../components/Store/CartContext"
+import CartContext from "./store/CartContext"
 import {useContext} from "react";
+import {Link } from "react-router-dom"
 const ProductItem=({product})=>{
 const ctx=useContext(CartContext);
     return (
@@ -8,13 +9,21 @@ const ctx=useContext(CartContext);
   className="border-0 shadow-none"
   style={{ width: "15rem" }}
 >
-            <Card.Title className="d-flex ">
-             {product.title}
-            </Card.Title>
-            <Card.Img 
-            src= {product.imageUrl} 
-            style={{ height: "220px", objectFit: "cover" }}
-            />
+      <Card.Title className="d-flex justify-content-center mb-3">
+        <Link
+          to={`/product/${product.id}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          {product.title}
+        </Link>
+      </Card.Title>
+            <Link to={`/product/${product.id}`}>
+            <Card.Img
+             src={product.images[0]}
+               style={{ height: "220px", objectFit: "cover" }}
+              />
+         </Link>
+         
             <Card.Body  className="d-flex justify-content-between align-items-end">
                 <div className="d-flex fw-bold"> ${product.price}</div>
                
@@ -22,7 +31,6 @@ const ctx=useContext(CartContext);
                 </Card.Body>
                
                
-        
 
             </Card>
     )
