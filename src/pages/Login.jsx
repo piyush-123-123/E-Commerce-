@@ -36,8 +36,9 @@ const submitHandler = async (event) => {
     if (!response.ok) {
       throw new Error(data.error.message);
     }
-
-    ctx.login(data.idToken);
+    console.log("Entered Email:", enteredEmail);
+    ctx.login(data.idToken,enteredEmail);
+    
     history.replace("/store");
   } catch (error) {
     alert(error.message);

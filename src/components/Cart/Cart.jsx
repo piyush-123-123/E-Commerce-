@@ -1,12 +1,36 @@
 import { Button } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext ,useEffect} from "react";
 import CartContext from "../store/CartContext";
 import CartItem from "./CartItem";
 import "./Cart.css";
-import {Row,Col} from "react-bootstrap"
+import {Row,Col} from "react-bootstrap";
+import AuthContext from "../store/AuthContext";
+import API_URL from "../../API";
 
 const Cart = ({ onCloseCart }) => {
   const ctx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
+
+ const userId = authCtx.email
+  ? authCtx.email.replace(/[@.]/g, "")
+  : "";
+  useEffect(() => {
+  const fetchCartItems = async () => {
+    try{
+    const response = await fetch(`${API_URL}/cart${userId}`);
+    const data = await response.json();
+
+   ctx.setItems(data);
+  }
+  catch(err){
+    console.log(err);
+  }
+  }
+
+  if (userId) {
+    fetchCartItems();
+  }
+}, [userId]);
 
   const totalPrice = ctx.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -23,7 +47,7 @@ const Cart = ({ onCloseCart }) => {
         >
           X
         </Button>
-</div>
+     </div>
       
         <div className="cartheader">
        <h2>Cart</h2>
@@ -46,7 +70,7 @@ const Cart = ({ onCloseCart }) => {
      <div className="cart-body">
   {ctx.items.map((item) => (
     <CartItem
-      key={item.title}
+      key={item._id}
       item={item}
     />
   ))}

@@ -6,7 +6,7 @@ const CartItem = ({ item }) => {
    <Row className="align-items-center py-3 border-bottom">
   <Col xs={6} className="d-flex align-items-center">
         <Image
-          src={item.imageUrl}
+          src={item.images[0]}
           rounded
           width={40}
           height={40}

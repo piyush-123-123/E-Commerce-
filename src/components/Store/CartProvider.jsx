@@ -31,11 +31,17 @@ const updatedItems = state.items.map((item) => {
     return updatedItem;
   }
 
+  
   return item;
 }); 
 return {
     items:updatedItems,
 }
+}
+  if (action.type === "SET_ITEMS") {
+  return {
+    items: action.payload,
+  };
 }
 
   return state;
@@ -54,9 +60,18 @@ const CartProvider = (props) => {
     });
   };
 
+  const setItemsHandler = (items) => {
+  dispatchCartAction({
+    type: "SET_ITEMS",
+    payload: items,
+  });
+};
+  
+
   const cartContext = {
     items: cartState.items,
     addItem: addItemHandler,
+    setItems: setItemsHandler,
   
   };
 
