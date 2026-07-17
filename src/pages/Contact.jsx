@@ -1,7 +1,9 @@
 import { Form, Button, Card } from "react-bootstrap";
 import {useState} from "react";
+import {Prompt} from "react-router-dom";
 const Contact = () => {
 
+    const [isEntering, setIsEntering] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -25,12 +27,17 @@ const Contact = () => {
       setName("");
       setEmail("");
       setPhone("");
-
+     setIsEntering(false);
     }
 
   return (
+    <>
+    <Prompt 
+    when={isEntering}
+    message="Are you sure you want to leave? All your entered data will be lost."
+    />
     <Card className="w-50 mx-auto mt-5 p-4">
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} onFocus={()=>setIsEntering(true)}>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" value={name} onChange={(e)=>setName(e.target.value)}/>
@@ -51,6 +58,7 @@ const Contact = () => {
         </div>
       </Form>
     </Card>
+    </>
   );
 };
 

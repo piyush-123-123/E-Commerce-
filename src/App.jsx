@@ -7,7 +7,7 @@ import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./components/store/CartProvider";
 import Footer from "./components/Footer";
-
+import Login from "./pages/Login"
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import About from "./pages/About";
@@ -49,7 +49,10 @@ const App = () => {
               <Contact />
           </Route>
           <Route path="/product/:productId">
-         <ProductDetails />
+          <ProductDetails />
+          </Route>
+          <Route path="/login">
+          <Login />
           </Route>
 
         </Switch>
