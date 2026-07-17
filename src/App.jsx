@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Switch, Route } from 'react-router-dom';
+import { useState ,useContext} from "react";
+import { Switch, Route ,Redirect} from 'react-router-dom';
 import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails"
 import Navbar from "./components/Navbar";
@@ -11,12 +11,14 @@ import Login from "./pages/Login"
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import About from "./pages/About";
-
+import AuthContext from "./components/store/AuthContext"
 import "./App.css";
 
 const App = () => {
-  const [showCart, setShowCart] = useState(false);
 
+  const ctx=useContext(AuthContext);
+  const [showCart, setShowCart] = useState(false);
+  
   const openCartHandler = () => {
     setShowCart(true);
   };
@@ -37,9 +39,9 @@ const App = () => {
           <Route path="/" exact>
               <Home />
           </Route>
-
+        
           <Route path="/store">
-              <Store />
+          {ctx.isLoggedIn ?  <Store /> : <Redirect to="/login" /> }
           </Route>
 
           <Route path="/about">
