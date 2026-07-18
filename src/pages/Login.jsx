@@ -1,6 +1,7 @@
 import { useRef ,useContext} from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../components/Store/AuthContext";
+import {Link} from "react-router-dom";
 
 const Login = () => {
 
@@ -74,6 +75,9 @@ const submitHandler = async (event) => {
           Login
         </button>
       </form>
+      <p>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+       </p>
     </div>
   );
 };

@@ -13,12 +13,13 @@ const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ProductDetails = lazy(() => import("./pages/ProductDetails"));
 const Login = lazy(() => import("./pages/Login"));
+const SignUp =lazy(()=>import("./pages/SignUp"));
 
 const App = () => {
-
+  
   const ctx=useContext(AuthContext);
   const [showCart, setShowCart] = useState(false);
-  
+
   const openCartHandler = () => {
     setShowCart(true);
   };
@@ -31,14 +32,13 @@ const App = () => {
     <CartProvider>
       <div className="app">
         <Navbar onOpenCart={openCartHandler} />
-
         {showCart && <Cart onCloseCart={closeCartHandler} />}
        <Hero />
        <Suspense fallback={<h2>Loading...</h2>}>
        <main className="content">
         <Switch>
           <Route path="/" exact>
-              <Home />
+              <Home />h
           </Route>
           <Route path="/store">
           {ctx.isLoggedIn ?  <Store /> : <Redirect to="/login" /> }
@@ -53,17 +53,25 @@ const App = () => {
           <Route path="/product/:productId">
           <ProductDetails />
           </Route>
+
           <Route path="/login">
           <Login />
           </Route>
+          <Route path="/signup">
+          <SignUp />
+          </Route>
+
 
         </Switch>
+        
         </main>
-        </Suspense>
 
+        </Suspense>
         <Footer />
+
       </div>
     </CartProvider>
+
   );
 };
 
