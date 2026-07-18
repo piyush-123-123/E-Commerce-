@@ -1,8 +1,8 @@
 import { Card, Button } from "react-bootstrap";
-import CartContext from "./store/CartContext";
+import CartContext from "./Store/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "./store/AuthContext";
+import AuthContext from "./Store/AuthContext";
 import API_URL from "../API";
 
 const ProductItem = ({ product }) => {
@@ -15,11 +15,11 @@ const ProductItem = ({ product }) => {
 
 const addToCartHandler = async () => {
   try {
-    // Get current cart
+    
     const response = await fetch(`${API_URL}/cart${userId}`);
     const cartItems = await response.json();
 
-    // Check if product already exists
+
     const existingItem = cartItems.find(
       (item) => item.id === product.id
     );
@@ -27,7 +27,7 @@ const addToCartHandler = async () => {
     if (existingItem) {
       const { _id, ...updatedItem } = existingItem;
 
-      // Update quantity
+
       await fetch(`${API_URL}/cart${userId}/${_id}`, {
         method: "PUT",
         headers: {
@@ -39,7 +39,7 @@ const addToCartHandler = async () => {
         }),
       });
     } else {
-      // Add new item
+
       await fetch(`${API_URL}/cart${userId}`, {
         method: "POST",
         headers: {
@@ -52,7 +52,7 @@ const addToCartHandler = async () => {
       });
     }
 
-    // Fetch updated cart and update Context
+
     const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
     const updatedCart = await updatedResponse.json();
 

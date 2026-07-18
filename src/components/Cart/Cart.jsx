@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
 import { useContext ,useEffect} from "react";
-import CartContext from "../store/CartContext";
+import CartContext from "../Store/CartContext";
 import CartItem from "./CartItem";
 import "./Cart.css";
 import {Row,Col} from "react-bootstrap";
-import AuthContext from "../store/AuthContext";
+import AuthContext from "../Store/AuthContext";
 import API_URL from "../../API";
 
 const Cart = ({ onCloseCart }) => {
@@ -14,6 +14,7 @@ const Cart = ({ onCloseCart }) => {
  const userId = authCtx.email
   ? authCtx.email.replace(/[@.]/g, "")
   : "";
+
   useEffect(() => {
   const fetchCartItems = async () => {
     try{

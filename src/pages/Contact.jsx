@@ -22,7 +22,6 @@ const Contact = () => {
         headers :{
          "Content-Type": "application/json",
         }
-
       })
       setName("");
       setEmail("");
@@ -42,6 +41,7 @@ const Contact = () => {
     Fill in your details and we'll contact you soon.
      </p>
      </div>
+
     <Card className="w-50 mx-auto mt-5 p-4">
       <Form onSubmit={submitHandler} onFocus={()=>setIsEntering(true)}>
         <Form.Group className="mb-3">

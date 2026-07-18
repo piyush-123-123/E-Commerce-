@@ -3,9 +3,9 @@ import { Switch, Route ,Redirect} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
-import CartProvider from "./components/store/CartProvider";
+import CartProvider from "./components/Store/CartProvider";
 import Footer from "./components/Footer";
-import AuthContext from "./components/store/AuthContext"
+import AuthContext from "./components/Store/AuthContext"
 import "./App.css";
 const Home = lazy(() => import("./pages/Home"));
 const Store = lazy(() => import("./pages/Store"));

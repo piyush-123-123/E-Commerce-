@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
-import AuthContext from "../components/store/AuthContext"
+import AuthContext from "./Store/AuthContext"
 
 const Header = ({ onOpenCart }) => {
   const location = useLocation();
