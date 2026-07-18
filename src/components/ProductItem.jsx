@@ -13,47 +13,34 @@ const ProductItem = ({ product }) => {
     ? authCtx.email.replace(/[@.]/g, "")
     : "";
 
-  const addToCartHandler = async () => {
-    try {
-      // Fetch existing cart items
-      const response = await fetch(`${API_URL}/cart${userId}`);
-      const cartItems = await response.json();
+const addToCartHandler = async () => {
+  try {
+    // Get current cart
+    const response = await fetch(`${API_URL}/cart${userId}`);
+    const cartItems = await response.json();
 
-      // Check if product already exists
-      const existingItem = cartItems.find(
-        (item) => item.id === product.id
-      );
+    // Check if product already exists
+    const existingItem = cartItems.find(
+      (item) => item.id === product.id
+    );
 
-      if (existingItem) {
-        const { _id, ...updatedItem } = existingItem;
+    if (existingItem) {
+      const { _id, ...updatedItem } = existingItem;
 
-        const putResponse = await fetch(
-          `${API_URL}/cart${userId}/${existingItem._id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...updatedItem,
-              quantity: existingItem.quantity + 1,
-            }),
-          }
-        );
-
-        console.log("PUT Status:", putResponse.status);
-
-        // Update local context (optional but recommended)
-        ctx.addItem({
-          ...existingItem,
+      // Update quantity
+      await fetch(`${API_URL}/cart${userId}/${_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...updatedItem,
           quantity: existingItem.quantity + 1,
-        });
-
-        return;
-      }
-
-      // Product doesn't exist, create it
-      const postResponse = await fetch(`${API_URL}/cart${userId}`, {
+        }),
+      });
+    } else {
+      // Add new item
+      await fetch(`${API_URL}/cart${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,17 +50,17 @@ const ProductItem = ({ product }) => {
           quantity: 1,
         }),
       });
-
-      console.log("POST Status:", postResponse.status);
-
-      ctx.addItem({
-        ...product,
-        quantity: 1,
-      });
-    } catch (err) {
-      console.log(err);
     }
-  };
+
+    // Fetch updated cart and update Context
+    const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
+    const updatedCart = await updatedResponse.json();
+
+    ctx.setItems(updatedCart);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   return (
     <Card

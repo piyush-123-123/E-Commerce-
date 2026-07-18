@@ -36,6 +36,12 @@ const Contact = () => {
     when={isEntering}
     message="Are you sure you want to leave? All your entered data will be lost."
     />
+    <div className="text-center mt-5 mb-4">
+     <h2 className="fw-bold">Get In Touch</h2>
+     <p className="text-muted">
+    Fill in your details and we'll contact you soon.
+     </p>
+     </div>
     <Card className="w-50 mx-auto mt-5 p-4">
       <Form onSubmit={submitHandler} onFocus={()=>setIsEntering(true)}>
         <Form.Group className="mb-3">

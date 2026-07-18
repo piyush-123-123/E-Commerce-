@@ -38,12 +38,20 @@ const Tours = () => {
     <div className="tour">
       <h2 className="text-center fw-bold mb-5">TOURS</h2>
    
-      {tours.map((tour, index) => (
-     <div key={index} className="tourList">
-    <span>{tour.date}</span>
-    <span>{tour.city}</span>
-    <span>{tour.venue}</span>
-    <Button variant="outline-info">Buy Tickets</Button>
+{tours.map((tour, index) => (
+  <div
+    key={index}
+    className="tourList d-flex justify-content-between align-items-center py-3"
+  >
+    <span className="tour-date">{tour.date}</span>
+
+    <span className="tour-city">{tour.city}</span>
+
+    <span className="tour-venue">{tour.venue}</span>
+
+    <Button variant="info" className="text-white px-4">
+      Buy Tickets
+    </Button>
   </div>
 ))}
     </div>

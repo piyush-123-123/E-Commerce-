@@ -8,28 +8,28 @@ const Header = ({ onOpenCart }) => {
   const ctx=useContext(AuthContext);
 
   return (
-    <Navbar bg="dark" variant="dark" fixed="top">
+    <Navbar bg="dark" variant="dark" fixed="top" >
       <Container>
         <div style={{ width: "100px" }}></div>
 
         <Nav className="mx-auto">
-          <Nav.Link as={NavLink} exact to="/" activeClassName="active">
+          <Nav.Link className="fw-semibold text-uppercase" as={NavLink} exact to="/" activeClassName="active">
             Home
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/store" activeClassName="active">
+          <Nav.Link className="fw-semibold text-uppercase" as={NavLink} to="/store" activeClassName="active">
             Store
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/about" activeClassName="active">
+          <Nav.Link className="fw-semibold text-uppercase" as={NavLink} to="/about" activeClassName="active">
             About
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/contact" activeClassName="active">
+          <Nav.Link className="fw-semibold text-uppercase" as={NavLink} to="/contact" activeClassName="active">
             Contact Us
           </Nav.Link>
         {!ctx.isLoggedIn && (
-          <Nav.Link as={NavLink} to="/login">
+          <Nav.Link className="fw-semibold text-uppercase" as={NavLink} to="/login">
            Login
          </Nav.Link>
         )}

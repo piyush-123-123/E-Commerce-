@@ -4,39 +4,38 @@ import "./Hero.css";
 
 const Hero = () => {
   const location = useLocation();
+
   const isHome = location.pathname === "/";
-  const isContactUs=location.pathname==="/contact";
+  const isContactUs = location.pathname === "/contact";
 
   return (
     <>
-  {!isContactUs &&
-  <div className="bg-secondary text-white text-center py-5 ">
-   <Container className="hero d-flex flex-column align-items-center">
-  <h1 className="display-1 fw-bold">The Generics</h1>
+      {!isContactUs && (
+        <div className="hero-section text-white text-center py-5">
+          <Container className="hero d-flex flex-column align-items-center">
+            <h1 className="hero-title">The Generics</h1>
 
-  {isHome && (
-    <>
-      <Button
-        variant="outline-info"
-        className="text-white mt-3"
-      >
-        Get our Latest Album
-      </Button>
+            {isHome && (
+              <>
+                <Button
+                  variant="outline-info"
+                  className="hero-btn mt-4"
+                >
+                  Get our Latest Album
+                </Button>
 
-      <Button
-        variant="outline-info"
-        className="rounded-circle mt-4"
-        style={{ width: "70px", height: "70px" }}
-      >
-        ▶
-      </Button>
+                <Button
+                  variant="outline-info"
+                  className="hero-play-btn mt-4"
+                >
+                  ▶
+                </Button>
+              </>
+            )}
+          </Container>
+        </div>
+      )}
     </>
-  )}
-
-</Container>
-    </div>
-}
-</>
   );
 };
 

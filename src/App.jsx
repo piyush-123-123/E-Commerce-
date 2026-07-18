@@ -1,18 +1,18 @@
-import { useState ,useContext} from "react";
+import { useState ,useContext,lazy,Suspense} from "react";
 import { Switch, Route ,Redirect} from 'react-router-dom';
-import Contact from "./pages/Contact";
-import ProductDetails from "./pages/ProductDetails"
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./components/store/CartProvider";
 import Footer from "./components/Footer";
-import Login from "./pages/Login"
-import Home from "./pages/Home";
-import Store from "./pages/Store";
-import About from "./pages/About";
 import AuthContext from "./components/store/AuthContext"
 import "./App.css";
+const Home = lazy(() => import("./pages/Home"));
+const Store = lazy(() => import("./pages/Store"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
+const Login = lazy(() => import("./pages/Login"));
 
 const App = () => {
 
@@ -34,12 +34,12 @@ const App = () => {
 
         {showCart && <Cart onCloseCart={closeCartHandler} />}
        <Hero />
+       <Suspense fallback={<h2>Loading...</h2>}>
        <main className="content">
         <Switch>
           <Route path="/" exact>
               <Home />
           </Route>
-        
           <Route path="/store">
           {ctx.isLoggedIn ?  <Store /> : <Redirect to="/login" /> }
           </Route>
@@ -59,6 +59,7 @@ const App = () => {
 
         </Switch>
         </main>
+        </Suspense>
 
         <Footer />
       </div>

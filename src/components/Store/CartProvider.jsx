@@ -7,40 +7,17 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
    
-  if (action.type === "ADD_ITEM") {
-     const existingCartItem = state.items.find(
-  (item) => item.title === action.payload.title
-);
-if(!existingCartItem){
-    return {
-      items: [
-  ...state.items,
-  {
-    ...action.payload,
-    quantity: 1,
-  },
-],
-    };
-  }
-const updatedItem = {
-  ...existingCartItem,
-  quantity: existingCartItem.quantity + 1,
-};
-const updatedItems = state.items.map((item) => {
-  if (item.title === action.payload.title) {
-    return updatedItem;
-  }
 
-  
-  return item;
-}); 
-return {
-    items:updatedItems,
-}
-}
   if (action.type === "SET_ITEMS") {
   return {
     items: action.payload,
+  };
+}
+if (action.type === "REMOVE_ITEM") {
+  return {
+    items: state.items.filter(
+      (item) => item._id !== action.payload
+    ),
   };
 }
 
@@ -53,26 +30,23 @@ const CartProvider = (props) => {
     defaultCartState
   );
 
-  const addItemHandler = (item) => {
-    dispatchCartAction({
-      type: "ADD_ITEM",
-      payload: item,
-    });
-  };
-
   const setItemsHandler = (items) => {
   dispatchCartAction({
     type: "SET_ITEMS",
     payload: items,
   });
 };
+const removeItemHandler = (id) => {
+  dispatchCartAction({
+    type: "REMOVE_ITEM",
+    payload: id,
+  });
+};
   
-
-  const cartContext = {
+   const cartContext = {
     items: cartState.items,
-    addItem: addItemHandler,
     setItems: setItemsHandler,
-  
+    removeItem: removeItemHandler,
   };
 
   return (
