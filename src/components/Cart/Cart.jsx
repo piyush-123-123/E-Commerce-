@@ -1,92 +1,84 @@
-import { Button } from "react-bootstrap";
-import { useContext ,useEffect} from "react";
-import CartContext from "../store/CartContext";
+import { Button, Row, Col } from "react-bootstrap";
+import { useContext, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import CartItem from "./CartItem";
-import {Row,Col} from "react-bootstrap";
-import AuthContext from "../store/AuthContext";
+import AuthContext from "../../store/AuthContext";
+import { cartActions } from "../../store/redux_store/cartSlice";
 import API_URL from "../../API";
 import "./Cart.css";
 
-
 const Cart = ({ onCloseCart }) => {
-  const ctx = useContext(CartContext);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.cart.items);
+
   const authCtx = useContext(AuthContext);
 
- const userId = authCtx.email
-  ? authCtx.email.replace(/[@.]/g, "")
-  : "";
+  const userId = authCtx.email
+    ? authCtx.email.replace(/[@.]/g, "")
+    : "";
 
   useEffect(() => {
-  const fetchCartItems = async () => {
-    try{
-    const response = await fetch(`${API_URL}/cart${userId}`);
-    const data = await response.json();
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch(`${API_URL}/cart${userId}`);
+        const data = await response.json();
 
-   ctx.setItems(data);
-  }
-  catch(err){
-    console.log(err);
-  }
-  }
+        dispatch(cartActions.setItems(data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  if (userId) {
-    fetchCartItems();
-  }
-}, [userId]);
+    if (userId) {
+      fetchCartItems();
+    }
+  }, [userId, dispatch]);
 
-  const totalPrice = ctx.items.reduce(
+  const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
 
   return (
     <div className="cart">
-     < div className="d-flex justify-content-end">
-    <Button
-          variant="outline-danger"
-          onClick={onCloseCart}
-          
-        >
+      <div className="d-flex justify-content-end">
+        <Button variant="outline-danger" onClick={onCloseCart}>
           X
         </Button>
-     </div>
-      
-        <div className="cartheader">
-       <h2>Cart</h2>
-        </div>
+      </div>
 
-     <Row className="fw-bold text-center pb-2">
-  <Col xs={6}>
-    <div className="heading-border">ITEM</div>
-  </Col>
+      <div className="cartheader">
+        <h2>Cart</h2>
+      </div>
 
-  <Col xs={2}>
-    <div className="heading-border">PRICE</div>
-  </Col>
+      <Row className="fw-bold text-center pb-2">
+        <Col xs={6}>
+          <div className="heading-border">ITEM</div>
+        </Col>
 
-  <Col xs={4}>
-    <div className="heading-border">QUANTITY</div>
-  </Col>
-</Row>
+        <Col xs={2}>
+          <div className="heading-border">PRICE</div>
+        </Col>
 
-     <div className="cart-body">
-  {ctx.items.map((item) => (
-    <CartItem
-      key={item._id}
-      item={item}
-    />
-  ))}
-</div>
+        <Col xs={4}>
+          <div className="heading-border">QUANTITY</div>
+        </Col>
+      </Row>
 
-      <div className="d-flex justify-content-end align-items-center my-2" >
-  <h4 className="me-3">Total</h4>
-  <h4>${totalPrice.toFixed(2)}</h4>
-</div>
+      <div className="cart-body">
+        {items.map((item) => (
+          <CartItem key={item._id} item={item} />
+        ))}
+      </div>
 
-      <div className="d-flex justify-content-center mt-5" >
-        <Button variant="info">
-          PURCHASE
-        </Button>
+      <div className="d-flex justify-content-end align-items-center my-2">
+        <h4 className="me-3">Total</h4>
+        <h4>${totalPrice.toFixed(2)}</h4>
+      </div>
+
+      <div className="d-flex justify-content-center mt-5">
+        <Button variant="info">PURCHASE</Button>
       </div>
     </div>
   );

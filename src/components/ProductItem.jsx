@@ -1,66 +1,63 @@
 import { Card, Button } from "react-bootstrap";
-import CartContext from "./store/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "./store/AuthContext";
+import { useDispatch } from "react-redux";
+
+import AuthContext from "../store/AuthContext";
+import { cartActions } from "../store/redux_store/cartSlice";
 import API_URL from "../API";
 
 const ProductItem = ({ product }) => {
-  const ctx = useContext(CartContext);
+  const dispatch = useDispatch();
   const authCtx = useContext(AuthContext);
 
   const userId = authCtx.email
     ? authCtx.email.replace(/[@.]/g, "")
     : "";
 
-const addToCartHandler = async () => {
-  try {
-    
-    const response = await fetch(`${API_URL}/cart${userId}`);
-    const cartItems = await response.json();
+  const addToCartHandler = async () => {
+    try {
+      const response = await fetch(`${API_URL}/cart${userId}`);
+      const cartItems = await response.json();
 
+      const existingItem = cartItems.find(
+        (item) => item.id === product.id
+      );
 
-    const existingItem = cartItems.find(
-      (item) => item.id === product.id
-    );
+      if (existingItem) {
+        const { _id, ...updatedItem } = existingItem;
 
-    if (existingItem) {
-      const { _id, ...updatedItem } = existingItem;
+        await fetch(`${API_URL}/cart${userId}/${_id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...updatedItem,
+            quantity: existingItem.quantity + 1,
+          }),
+        });
+      } else {
+        await fetch(`${API_URL}/cart${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...product,
+            quantity: 1,
+          }),
+        });
+      }
 
+      const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
+      const updatedCart = await updatedResponse.json();
 
-      await fetch(`${API_URL}/cart${userId}/${_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...updatedItem,
-          quantity: existingItem.quantity + 1,
-        }),
-      });
-    } else {
-
-      await fetch(`${API_URL}/cart${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...product,
-          quantity: 1,
-        }),
-      });
+      dispatch(cartActions.setItems(updatedCart));
+    } catch (err) {
+      console.log(err);
     }
-
-
-    const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
-    const updatedCart = await updatedResponse.json();
-
-    ctx.setItems(updatedCart);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  };
 
   return (
     <Card

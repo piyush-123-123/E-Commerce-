@@ -1,13 +1,14 @@
 import { Button, Image, Row, Col } from "react-bootstrap";
+import { useContext } from "react";
+import { useDispatch } from "react-redux";
 
 import API_URL from "../../API";
-import AuthContext from "../store/AuthContext";
-import CartContext from "../store/CartContext";
-import { useContext } from "react";
+import AuthContext from "../../store/AuthContext";
+import { cartActions } from "../../store/redux_store/cartSlice";
 
 const CartItem = ({ item }) => {
   const authCtx = useContext(AuthContext);
-  const cartCtx = useContext(CartContext);
+  const dispatch = useDispatch();
 
   const userId = authCtx.email
     ? authCtx.email.replace(/[@.]/g, "")
@@ -26,7 +27,11 @@ const CartItem = ({ item }) => {
         throw new Error("Failed to delete item");
       }
 
-      cartCtx.removeItem(item._id);
+      // Fetch updated cart
+      const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
+      const updatedCart = await updatedResponse.json();
+
+      dispatch(cartActions.setItems(updatedCart));
     } catch (err) {
       console.log(err);
     }

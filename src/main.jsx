@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import AuthContextProvider from "./components/store/AuthContextProvider";
+import AuthContextProvider from "./store/AuthContextProvider";
 import {Provider} from "react-redux";
-import store from "./components/store/redux/store";
+import store from "./store/redux_store/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
  
