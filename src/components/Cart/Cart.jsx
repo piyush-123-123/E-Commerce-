@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import CartItem from "./CartItem";
 import AuthContext from "../../store/AuthContext";
-import { cartActions } from "../../store/redux_store/cartSlice";
-import API_URL from "../../API";
+import { fetchCartData } from "../../store/redux_store/cart-actions";
 import "./Cart.css";
 
 const Cart = ({ onCloseCart }) => {
@@ -19,21 +18,10 @@ const Cart = ({ onCloseCart }) => {
     : "";
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await fetch(`${API_URL}/cart${userId}`);
-        const data = await response.json();
-
-        dispatch(cartActions.setItems(data));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     if (userId) {
-      fetchCartItems();
+      dispatch(fetchCartData(userId));
     }
-  }, [userId, dispatch]);
+  }, [dispatch, userId]);
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
