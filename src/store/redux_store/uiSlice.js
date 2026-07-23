@@ -3,7 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 
 const initialState={
-    showCart: false
+    showCart: false,
+    notification : null,
 }
 
 const uiSlice =createSlice({
@@ -12,7 +13,14 @@ const uiSlice =createSlice({
     reducers : { 
         toggleCart(state){
             state.showCart=!state.showCart;
-        }
+        },
+        showNotification(state,action){
+            state.notification=action.payload
+            
+        },   
+         hideNotification(state) {
+        state.notification = null;
+    }
     
     }
 })

@@ -1,3 +1,3 @@
-const API_URL = "https://crudcrud.com/api/780bf1c0fb1a4c2884d5a2c55debe1de"
+const API_URL = "https://crudcrud.com/api/986889f3e94b4ddea4a5d81b1623dc73"
 
 export default API_URL;
