@@ -1,12 +1,16 @@
-import { useState ,useContext,lazy,Suspense} from "react";
+import {  useContext,lazy,Suspense} from "react";
 import { Switch, Route ,Redirect} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Cart from "./components/Cart/Cart";
-import CartProvider from "./components/Store/CartProvider";
+import CartProvider from "./components/store/CartProvider";
 import Footer from "./components/Footer";
-import AuthContext from "./components/Store/AuthContext"
+import AuthContext from "./components/store/AuthContext";
 import "./App.css";
+import {useSelector,useDispatch} from "react-redux";
+import {uiActions} from "./components/store/redux/uiSlice";
+
+
 const Home = lazy(() => import("./pages/Home"));
 const Store = lazy(() => import("./pages/Store"));
 const About = lazy(() => import("./pages/About"));
@@ -18,21 +22,18 @@ const SignUp =lazy(()=>import("./pages/SignUp"));
 const App = () => {
   
   const ctx=useContext(AuthContext);
-  const [showCart, setShowCart] = useState(false);
+  const showCart=useSelector(state=>state.ui.showCart);
+  const dispatch=useDispatch();
 
-  const openCartHandler = () => {
-    setShowCart(true);
-  };
-
-  const closeCartHandler = () => {
-    setShowCart(false);
-  };
+  const toggleCartHandler=()=>{
+    dispatch(uiActions.toggleCart());
+  }
 
   return (
     <CartProvider>
       <div className="app">
-        <Navbar onOpenCart={openCartHandler} />
-        {showCart && <Cart onCloseCart={closeCartHandler} />}
+        <Navbar onOpenCart={toggleCartHandler} />
+        {showCart && <Cart onCloseCart={toggleCartHandler} />}
        <Hero />
        <Suspense fallback={<h2>Loading...</h2>}>
        <main className="content">

@@ -1,8 +1,8 @@
 import { Button, Image, Row, Col } from "react-bootstrap";
-import "./CartItem.css";
+
 import API_URL from "../../API";
-import AuthContext from "../Store/AuthContext";
-import CartContext from "../Store/CartContext";
+import AuthContext from "../store/AuthContext";
+import CartContext from "../store/CartContext";
 import { useContext } from "react";
 
 const CartItem = ({ item }) => {

@@ -1,8 +1,8 @@
 import { Card, Button } from "react-bootstrap";
-import CartContext from "./Store/CartContext";
+import CartContext from "./store/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "./Store/AuthContext";
+import AuthContext from "./store/AuthContext";
 import API_URL from "../API";
 
 const ProductItem = ({ product }) => {

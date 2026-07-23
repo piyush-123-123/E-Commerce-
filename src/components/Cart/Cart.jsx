@@ -1,11 +1,12 @@
 import { Button } from "react-bootstrap";
 import { useContext ,useEffect} from "react";
-import CartContext from "../Store/CartContext";
+import CartContext from "../store/CartContext";
 import CartItem from "./CartItem";
-import "./Cart.css";
 import {Row,Col} from "react-bootstrap";
-import AuthContext from "../Store/AuthContext";
+import AuthContext from "../store/AuthContext";
 import API_URL from "../../API";
+import "./Cart.css";
+
 
 const Cart = ({ onCloseCart }) => {
   const ctx = useContext(CartContext);

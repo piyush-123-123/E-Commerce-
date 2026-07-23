@@ -8,6 +8,7 @@ const Footer = () => {
     <footer className="bg-info text-white py-4 mt-5">
       <Container className="d-flex justify-content-between align-items-center">
         <h2 className="ml-8">The Generics</h2>
+       
        {location.pathname !=="/" &&
         <div className="d-flex bg-lightgray gap-5">
           <a
