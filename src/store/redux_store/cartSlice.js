@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { sendCartData } from "./cart-actions";
+import { fetchCartData } from "./cart-actions";
+import {removeCartData} from "./cart-actions";
 
 const initialState = {
   items: [],
@@ -7,12 +10,17 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {
-    setItems(state, action) {
-      state.items = action.payload;
-    },
-  },
+  extraReducers: (builder) => {
+    builder.addCase(sendCartData.fulfilled, (state, action) => {
+      state.items = action.payload
+    })
+      .addCase(fetchCartData.fulfilled, (state, action) => {
+        state.items = action.payload;
+      })
+      .addCase(removeCartData.fulfilled, (state, action) => {
+        state.items = action.payload;
+      });
+  }
 });
 
 export const cartActions = cartSlice.actions;
-export default cartSlice.reducer;

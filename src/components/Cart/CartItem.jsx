@@ -1,10 +1,8 @@
 import { Button, Image, Row, Col } from "react-bootstrap";
 import { useContext } from "react";
 import { useDispatch } from "react-redux";
-
-import API_URL from "../../API";
 import AuthContext from "../../store/AuthContext";
-import { cartActions } from "../../store/redux_store/cartSlice";
+import {removeCartData} from "../../store/redux_store/cart-actions";
 
 const CartItem = ({ item }) => {
   const authCtx = useContext(AuthContext);
@@ -15,26 +13,8 @@ const CartItem = ({ item }) => {
     : "";
 
   const removeItemHandler = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}/cart${userId}/${item._id}`,
-        {
-          method: "DELETE",
-        }
-      );
+    dispatch(removeCartData({ userId, item }));
 
-      if (!response.ok) {
-        throw new Error("Failed to delete item");
-      }
-
-      // Fetch updated cart
-      const updatedResponse = await fetch(`${API_URL}/cart${userId}`);
-      const updatedCart = await updatedResponse.json();
-
-      dispatch(cartActions.setItems(updatedCart));
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
