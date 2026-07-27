@@ -2,9 +2,10 @@ import React from "react";
 
 const AuthContext = React.createContext({
   token: "",
-  email:"",
+  email: "",
   isLoggedIn: false,
-  login: (token) => {},
+  login: async (email, password) => {},
+  signup: async (email, password) => {},
   logout: () => {},
 });
 

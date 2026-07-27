@@ -1,50 +1,28 @@
-import { useRef ,useContext} from "react";
-import { useHistory } from "react-router-dom";
+import { useRef, useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
 import AuthContext from "../store/AuthContext";
-import {Link} from "react-router-dom";
 
 const Login = () => {
-
   const emailRef = useRef();
   const passwordRef = useRef();
+
   const ctx = useContext(AuthContext);
   const history = useHistory();
 
-const submitHandler = async (event) => {
-  event.preventDefault();
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
-  const enteredEmail = emailRef.current.value;
-  const enteredPassword = passwordRef.current.value;
+    const enteredEmail = emailRef.current.value;
+    const enteredPassword = passwordRef.current.value;
 
-  try {
-    const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDOusCY-amGR3fTRaS8yq9GTm93N7RJbTk",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          returnSecureToken: true,
-        }),
-      }
-    );
+    try {
+      await ctx.login(enteredEmail, enteredPassword);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error.message);
+      history.replace("/store");
+    } catch (error) {
+      alert(error.message);
     }
-    console.log("Entered Email:", enteredEmail);
-    ctx.login(data.idToken,enteredEmail);
-    
-    history.replace("/store");
-  } catch (error) {
-    alert(error.message);
-  }
-};
+  };
 
   return (
     <div className="container mt-5" style={{ maxWidth: "400px" }}>
@@ -75,9 +53,10 @@ const submitHandler = async (event) => {
           Login
         </button>
       </form>
+
       <p>
         Don't have an account? <Link to="/signup">Sign Up</Link>
-       </p>
+      </p>
     </div>
   );
 };
